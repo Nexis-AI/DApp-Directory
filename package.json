@@ -1,0 +1,37 @@
+{
+  "name": "@nexis/dapps-directory",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "scrape": "tsx src/cli/scrape.ts",
+    "openapi:generate": "tsx src/cli/generate-openapi.ts",
+    "dev:http": "tsx src/http/dev.ts",
+    "dev:mcp": "tsx src/mcp/dev.ts",
+    "web:dev": "pnpm --filter web dev",
+    "web:build": "pnpm --filter web build",
+    "web:typecheck": "pnpm --filter web typecheck"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "fastify": "^5.6.1",
+    "fastmcp": "^3.23.1",
+    "fast-xml-parser": "^5.2.5",
+    "p-limit": "^7.1.1",
+    "playwright": "^1.54.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
