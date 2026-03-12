@@ -1,0 +1,370 @@
+[
+  {
+    "name": "Ai Agents",
+    "count": 18
+  },
+  {
+    "name": "Algo-stables",
+    "count": 35
+  },
+  {
+    "name": "Anchor Btc",
+    "count": 8
+  },
+  {
+    "name": "Basis Trading",
+    "count": 34
+  },
+  {
+    "name": "Block Builders",
+    "count": 4
+  },
+  {
+    "name": "Bridge",
+    "count": 137
+  },
+  {
+    "name": "Bridge Aggregator",
+    "count": 8
+  },
+  {
+    "name": "Bridge Aggregators",
+    "count": 2
+  },
+  {
+    "name": "Canonical Bridge",
+    "count": 82
+  },
+  {
+    "name": "Cdp",
+    "count": 164
+  },
+  {
+    "name": "Cdp Manager",
+    "count": 2
+  },
+  {
+    "name": "Cedefi",
+    "count": 7
+  },
+  {
+    "name": "Chain Bribes",
+    "count": 1
+  },
+  {
+    "name": "Charity Fundraising",
+    "count": 2
+  },
+  {
+    "name": "Collateral Management",
+    "count": 1
+  },
+  {
+    "name": "Cross Chain Bridge",
+    "count": 37
+  },
+  {
+    "name": "Dca Tools",
+    "count": 4
+  },
+  {
+    "name": "Decentralized Ai",
+    "count": 3
+  },
+  {
+    "name": "Decentralized Btc",
+    "count": 4
+  },
+  {
+    "name": "Depin",
+    "count": 6
+  },
+  {
+    "name": "Derivatives",
+    "count": 270
+  },
+  {
+    "name": "Developer Tools",
+    "count": 25
+  },
+  {
+    "name": "DEX",
+    "count": 1045
+  },
+  {
+    "name": "DEX Aggregator",
+    "count": 112
+  },
+  {
+    "name": "Domains",
+    "count": 7
+  },
+  {
+    "name": "Dor",
+    "count": 1
+  },
+  {
+    "name": "Dual-token Stablecoin",
+    "count": 4
+  },
+  {
+    "name": "Exotic Options",
+    "count": 1
+  },
+  {
+    "name": "Farm",
+    "count": 126
+  },
+  {
+    "name": "Gamified Mining",
+    "count": 14
+  },
+  {
+    "name": "Gaming",
+    "count": 61
+  },
+  {
+    "name": "Governance Incentives",
+    "count": 11
+  },
+  {
+    "name": "Identity & Reputation",
+    "count": 1
+  },
+  {
+    "name": "Indexes",
+    "count": 60
+  },
+  {
+    "name": "Insurance",
+    "count": 18
+  },
+  {
+    "name": "Interface",
+    "count": 89
+  },
+  {
+    "name": "Launchpad",
+    "count": 131
+  },
+  {
+    "name": "Lending",
+    "count": 376
+  },
+  {
+    "name": "Leveraged Farming",
+    "count": 32
+  },
+  {
+    "name": "Liquid Restaking",
+    "count": 24
+  },
+  {
+    "name": "Liquid Staking",
+    "count": 239
+  },
+  {
+    "name": "Liquidations",
+    "count": 2
+  },
+  {
+    "name": "Liquidity Automation",
+    "count": 2
+  },
+  {
+    "name": "Liquidity Manager",
+    "count": 44
+  },
+  {
+    "name": "Luck Games",
+    "count": 23
+  },
+  {
+    "name": "Meme",
+    "count": 3
+  },
+  {
+    "name": "Mev",
+    "count": 8
+  },
+  {
+    "name": "Mining Pools",
+    "count": 1
+  },
+  {
+    "name": "NFT Automated Strategies",
+    "count": 2
+  },
+  {
+    "name": "NFT Launchpad",
+    "count": 1
+  },
+  {
+    "name": "NFT Lending",
+    "count": 23
+  },
+  {
+    "name": "NFT Marketplace",
+    "count": 47
+  },
+  {
+    "name": "Nftfi",
+    "count": 1
+  },
+  {
+    "name": "Onchain Capital Allocator",
+    "count": 61
+  },
+  {
+    "name": "Options",
+    "count": 42
+  },
+  {
+    "name": "Options Vault",
+    "count": 12
+  },
+  {
+    "name": "Oracle",
+    "count": 9
+  },
+  {
+    "name": "Otc Marketplace",
+    "count": 3
+  },
+  {
+    "name": "Partially Algorithmic Stablecoin",
+    "count": 6
+  },
+  {
+    "name": "Payments",
+    "count": 30
+  },
+  {
+    "name": "Physical Tcg",
+    "count": 7
+  },
+  {
+    "name": "Ponzi",
+    "count": 5
+  },
+  {
+    "name": "Portfolio Tracker",
+    "count": 2
+  },
+  {
+    "name": "Prediction Markets",
+    "count": 68
+  },
+  {
+    "name": "Privacy",
+    "count": 24
+  },
+  {
+    "name": "Private Investment Platform",
+    "count": 1
+  },
+  {
+    "name": "Reserve Currency",
+    "count": 35
+  },
+  {
+    "name": "Restaked Btc",
+    "count": 8
+  },
+  {
+    "name": "Restaking",
+    "count": 14
+  },
+  {
+    "name": "Risk Curators",
+    "count": 43
+  },
+  {
+    "name": "Rwa",
+    "count": 126
+  },
+  {
+    "name": "Rwa Lending",
+    "count": 19
+  },
+  {
+    "name": "Secondary Debt Markets",
+    "count": 1
+  },
+  {
+    "name": "Security Extension",
+    "count": 3
+  },
+  {
+    "name": "Sofi",
+    "count": 51
+  },
+  {
+    "name": "Stablecoin Issuer",
+    "count": 4
+  },
+  {
+    "name": "Stablecoin Wrapper",
+    "count": 1
+  },
+  {
+    "name": "Staking Pool",
+    "count": 37
+  },
+  {
+    "name": "Staking Rental",
+    "count": 1
+  },
+  {
+    "name": "Synthetics",
+    "count": 22
+  },
+  {
+    "name": "Telegram Bot",
+    "count": 23
+  },
+  {
+    "name": "Token Locker",
+    "count": 11
+  },
+  {
+    "name": "Trading App",
+    "count": 19
+  },
+  {
+    "name": "Treasury Manager",
+    "count": 4
+  },
+  {
+    "name": "Uncollateralized Lending",
+    "count": 9
+  },
+  {
+    "name": "Ve-incentive Automator",
+    "count": 1
+  },
+  {
+    "name": "Video Infrastructure",
+    "count": 1
+  },
+  {
+    "name": "Volume Boosting",
+    "count": 1
+  },
+  {
+    "name": "Wallets",
+    "count": 10
+  },
+  {
+    "name": "Yield",
+    "count": 343
+  },
+  {
+    "name": "Yield Aggregator",
+    "count": 116
+  },
+  {
+    "name": "Yield Lottery",
+    "count": 7
+  }
+]

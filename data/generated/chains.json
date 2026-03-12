@@ -1,0 +1,1722 @@
+[
+  {
+    "name": "0g",
+    "count": 6
+  },
+  {
+    "name": "Abstract",
+    "count": 18
+  },
+  {
+    "name": "Acala",
+    "count": 9
+  },
+  {
+    "name": "Aelf",
+    "count": 1
+  },
+  {
+    "name": "Aeternity",
+    "count": 1
+  },
+  {
+    "name": "Agoric",
+    "count": 2
+  },
+  {
+    "name": "Ailayer",
+    "count": 5
+  },
+  {
+    "name": "Aleph Zero EVM",
+    "count": 1
+  },
+  {
+    "name": "Alephium",
+    "count": 7
+  },
+  {
+    "name": "Algorand",
+    "count": 32
+  },
+  {
+    "name": "Althea",
+    "count": 1
+  },
+  {
+    "name": "Alv",
+    "count": 2
+  },
+  {
+    "name": "Ancient8",
+    "count": 3
+  },
+  {
+    "name": "Ao",
+    "count": 1
+  },
+  {
+    "name": "Apechain",
+    "count": 16
+  },
+  {
+    "name": "Aptos",
+    "count": 57
+  },
+  {
+    "name": "Arbitrum",
+    "count": 632
+  },
+  {
+    "name": "Arbitrum Nova",
+    "count": 6
+  },
+  {
+    "name": "Archway",
+    "count": 7
+  },
+  {
+    "name": "Areon Network",
+    "count": 1
+  },
+  {
+    "name": "Artela",
+    "count": 2
+  },
+  {
+    "name": "Asset Chain",
+    "count": 2
+  },
+  {
+    "name": "Astar",
+    "count": 30
+  },
+  {
+    "name": "Astar Zkevm",
+    "count": 4
+  },
+  {
+    "name": "Aura Network",
+    "count": 1
+  },
+  {
+    "name": "Aurora",
+    "count": 39
+  },
+  {
+    "name": "Avalanche",
+    "count": 324
+  },
+  {
+    "name": "Babylon Genesis",
+    "count": 5
+  },
+  {
+    "name": "Bahamut",
+    "count": 5
+  },
+  {
+    "name": "Bandchain",
+    "count": 1
+  },
+  {
+    "name": "Base",
+    "count": 539
+  },
+  {
+    "name": "Beam",
+    "count": 1
+  },
+  {
+    "name": "Berachain",
+    "count": 85
+  },
+  {
+    "name": "Besc Hyperchain",
+    "count": 2
+  },
+  {
+    "name": "Bevm",
+    "count": 6
+  },
+  {
+    "name": "Bifrost",
+    "count": 2
+  },
+  {
+    "name": "Bifrost Network",
+    "count": 4
+  },
+  {
+    "name": "Binance",
+    "count": 633
+  },
+  {
+    "name": "Bitcichain",
+    "count": 1
+  },
+  {
+    "name": "Bitcoin",
+    "count": 76
+  },
+  {
+    "name": "Bitcoincash",
+    "count": 4
+  },
+  {
+    "name": "Bitgert",
+    "count": 10
+  },
+  {
+    "name": "Bitkub",
+    "count": 9
+  },
+  {
+    "name": "Bitlayer",
+    "count": 23
+  },
+  {
+    "name": "Bitrock",
+    "count": 4
+  },
+  {
+    "name": "Bittensor",
+    "count": 2
+  },
+  {
+    "name": "Bittensor EVM",
+    "count": 1
+  },
+  {
+    "name": "Bittorrent",
+    "count": 11
+  },
+  {
+    "name": "Blast",
+    "count": 103
+  },
+  {
+    "name": "Bob",
+    "count": 30
+  },
+  {
+    "name": "Boba",
+    "count": 20
+  },
+  {
+    "name": "Boba_avax",
+    "count": 1
+  },
+  {
+    "name": "Boba_bnb",
+    "count": 1
+  },
+  {
+    "name": "Bostrom",
+    "count": 1
+  },
+  {
+    "name": "Botanix",
+    "count": 10
+  },
+  {
+    "name": "Bouncebit",
+    "count": 9
+  },
+  {
+    "name": "Bsquared",
+    "count": 22
+  },
+  {
+    "name": "Bytomsidechain",
+    "count": 1
+  },
+  {
+    "name": "Camp",
+    "count": 1
+  },
+  {
+    "name": "Canto",
+    "count": 16
+  },
+  {
+    "name": "Capx Chain",
+    "count": 1
+  },
+  {
+    "name": "Carbon",
+    "count": 4
+  },
+  {
+    "name": "Cardano",
+    "count": 39
+  },
+  {
+    "name": "Celestia",
+    "count": 4
+  },
+  {
+    "name": "Celo",
+    "count": 55
+  },
+  {
+    "name": "Chainflip",
+    "count": 1
+  },
+  {
+    "name": "Chihuahua",
+    "count": 4
+  },
+  {
+    "name": "Chiliz",
+    "count": 8
+  },
+  {
+    "name": "Chromia",
+    "count": 2
+  },
+  {
+    "name": "Citrea",
+    "count": 6
+  },
+  {
+    "name": "Civitia",
+    "count": 1
+  },
+  {
+    "name": "Clv",
+    "count": 5
+  },
+  {
+    "name": "Comdex",
+    "count": 2
+  },
+  {
+    "name": "Concordium",
+    "count": 1
+  },
+  {
+    "name": "Conflux",
+    "count": 13
+  },
+  {
+    "name": "Constellation",
+    "count": 1
+  },
+  {
+    "name": "Core",
+    "count": 44
+  },
+  {
+    "name": "Corn",
+    "count": 9
+  },
+  {
+    "name": "Cosmos",
+    "count": 5
+  },
+  {
+    "name": "Coti",
+    "count": 6
+  },
+  {
+    "name": "Crab",
+    "count": 1
+  },
+  {
+    "name": "Crescent",
+    "count": 1
+  },
+  {
+    "name": "Cronos",
+    "count": 68
+  },
+  {
+    "name": "Cronos Zkevm",
+    "count": 10
+  },
+  {
+    "name": "Cross",
+    "count": 1
+  },
+  {
+    "name": "Crossfi",
+    "count": 5
+  },
+  {
+    "name": "Csc",
+    "count": 1
+  },
+  {
+    "name": "Cube",
+    "count": 2
+  },
+  {
+    "name": "Curio",
+    "count": 1
+  },
+  {
+    "name": "Cyber",
+    "count": 2
+  },
+  {
+    "name": "Darwinia",
+    "count": 1
+  },
+  {
+    "name": "Dash",
+    "count": 1
+  },
+  {
+    "name": "Dchain",
+    "count": 1
+  },
+  {
+    "name": "Defichain",
+    "count": 3
+  },
+  {
+    "name": "Defichain EVM",
+    "count": 1
+  },
+  {
+    "name": "Defiverse",
+    "count": 1
+  },
+  {
+    "name": "Degen",
+    "count": 6
+  },
+  {
+    "name": "Dexalot",
+    "count": 1
+  },
+  {
+    "name": "Dexit",
+    "count": 2
+  },
+  {
+    "name": "Dfk",
+    "count": 2
+  },
+  {
+    "name": "Dfs Network",
+    "count": 1
+  },
+  {
+    "name": "Doge",
+    "count": 8
+  },
+  {
+    "name": "Dogechain",
+    "count": 14
+  },
+  {
+    "name": "Doma",
+    "count": 2
+  },
+  {
+    "name": "Dsc",
+    "count": 1
+  },
+  {
+    "name": "Duckchain",
+    "count": 3
+  },
+  {
+    "name": "Dydx",
+    "count": 2
+  },
+  {
+    "name": "Dymension",
+    "count": 3
+  },
+  {
+    "name": "Echelon",
+    "count": 3
+  },
+  {
+    "name": "Echelon Chain",
+    "count": 1
+  },
+  {
+    "name": "Eclipse",
+    "count": 8
+  },
+  {
+    "name": "Edu Chain",
+    "count": 8
+  },
+  {
+    "name": "Elastos",
+    "count": 3
+  },
+  {
+    "name": "Electroneum",
+    "count": 1
+  },
+  {
+    "name": "Elrond",
+    "count": 21
+  },
+  {
+    "name": "Elys",
+    "count": 2
+  },
+  {
+    "name": "Elysium",
+    "count": 1
+  },
+  {
+    "name": "Embr",
+    "count": 1
+  },
+  {
+    "name": "Endurance",
+    "count": 4
+  },
+  {
+    "name": "Energi",
+    "count": 2
+  },
+  {
+    "name": "Energyweb",
+    "count": 1
+  },
+  {
+    "name": "Eni",
+    "count": 3
+  },
+  {
+    "name": "Enuls",
+    "count": 1
+  },
+  {
+    "name": "Eos",
+    "count": 15
+  },
+  {
+    "name": "Eos EVM",
+    "count": 3
+  },
+  {
+    "name": "Equilibrium",
+    "count": 1
+  },
+  {
+    "name": "Ergo",
+    "count": 11
+  },
+  {
+    "name": "Eteria",
+    "count": 1
+  },
+  {
+    "name": "Ethereal",
+    "count": 1
+  },
+  {
+    "name": "Ethereum",
+    "count": 1159
+  },
+  {
+    "name": "Ethereumclassic",
+    "count": 6
+  },
+  {
+    "name": "Ethereumpow",
+    "count": 4
+  },
+  {
+    "name": "Etherlink",
+    "count": 15
+  },
+  {
+    "name": "Ethf",
+    "count": 1
+  },
+  {
+    "name": "Europa",
+    "count": 3
+  },
+  {
+    "name": "Eventum",
+    "count": 1
+  },
+  {
+    "name": "Everscale",
+    "count": 2
+  },
+  {
+    "name": "Evmos",
+    "count": 17
+  },
+  {
+    "name": "Exsat",
+    "count": 2
+  },
+  {
+    "name": "Fantom",
+    "count": 161
+  },
+  {
+    "name": "Filecoin",
+    "count": 17
+  },
+  {
+    "name": "Flare",
+    "count": 29
+  },
+  {
+    "name": "Flow",
+    "count": 14
+  },
+  {
+    "name": "Fluence",
+    "count": 1
+  },
+  {
+    "name": "Fogo",
+    "count": 3
+  },
+  {
+    "name": "Form Network",
+    "count": 2
+  },
+  {
+    "name": "Fraxtal",
+    "count": 32
+  },
+  {
+    "name": "Fsc",
+    "count": 1
+  },
+  {
+    "name": "Fuel",
+    "count": 9
+  },
+  {
+    "name": "Functionx",
+    "count": 4
+  },
+  {
+    "name": "Fuse",
+    "count": 18
+  },
+  {
+    "name": "Fusion",
+    "count": 1
+  },
+  {
+    "name": "Gala",
+    "count": 1
+  },
+  {
+    "name": "Ganchain",
+    "count": 1
+  },
+  {
+    "name": "Gatelayer",
+    "count": 3
+  },
+  {
+    "name": "Genesys",
+    "count": 2
+  },
+  {
+    "name": "Genshiro",
+    "count": 1
+  },
+  {
+    "name": "Goat",
+    "count": 11
+  },
+  {
+    "name": "Gochain",
+    "count": 1
+  },
+  {
+    "name": "Godwoken",
+    "count": 1
+  },
+  {
+    "name": "Godwokenv1",
+    "count": 2
+  },
+  {
+    "name": "Goerli",
+    "count": 1
+  },
+  {
+    "name": "Gravity",
+    "count": 3
+  },
+  {
+    "name": "Gravitybridge",
+    "count": 1
+  },
+  {
+    "name": "Grove",
+    "count": 1
+  },
+  {
+    "name": "Grx Chain",
+    "count": 1
+  },
+  {
+    "name": "Haqq",
+    "count": 3
+  },
+  {
+    "name": "Harmony",
+    "count": 33
+  },
+  {
+    "name": "Hashkey Chain",
+    "count": 6
+  },
+  {
+    "name": "Haven1",
+    "count": 2
+  },
+  {
+    "name": "Heco",
+    "count": 28
+  },
+  {
+    "name": "Hedera",
+    "count": 17
+  },
+  {
+    "name": "Heiko",
+    "count": 1
+  },
+  {
+    "name": "Hela",
+    "count": 3
+  },
+  {
+    "name": "Hemi",
+    "count": 36
+  },
+  {
+    "name": "Hoo",
+    "count": 3
+  },
+  {
+    "name": "Horizen Eon",
+    "count": 4
+  },
+  {
+    "name": "Hydra",
+    "count": 2
+  },
+  {
+    "name": "Hydra Chain",
+    "count": 1
+  },
+  {
+    "name": "Hydradx",
+    "count": 1
+  },
+  {
+    "name": "Hyperliquid L1",
+    "count": 103
+  },
+  {
+    "name": "Icon",
+    "count": 4
+  },
+  {
+    "name": "Icp",
+    "count": 15
+  },
+  {
+    "name": "Idex",
+    "count": 1
+  },
+  {
+    "name": "Immutable Zkevm",
+    "count": 4
+  },
+  {
+    "name": "Inertia",
+    "count": 1
+  },
+  {
+    "name": "Inevm",
+    "count": 6
+  },
+  {
+    "name": "Initia",
+    "count": 5
+  },
+  {
+    "name": "Injective",
+    "count": 24
+  },
+  {
+    "name": "Ink",
+    "count": 19
+  },
+  {
+    "name": "Interlay",
+    "count": 1
+  },
+  {
+    "name": "Iota",
+    "count": 5
+  },
+  {
+    "name": "Iota EVM",
+    "count": 9
+  },
+  {
+    "name": "Iotex",
+    "count": 24
+  },
+  {
+    "name": "Jbc",
+    "count": 4
+  },
+  {
+    "name": "Joc",
+    "count": 1
+  },
+  {
+    "name": "Juno",
+    "count": 9
+  },
+  {
+    "name": "K2",
+    "count": 2
+  },
+  {
+    "name": "Kadena",
+    "count": 3
+  },
+  {
+    "name": "Kardia",
+    "count": 2
+  },
+  {
+    "name": "Karura",
+    "count": 3
+  },
+  {
+    "name": "Kasplex",
+    "count": 3
+  },
+  {
+    "name": "Katana",
+    "count": 21
+  },
+  {
+    "name": "Kava",
+    "count": 76
+  },
+  {
+    "name": "Keeta",
+    "count": 1
+  },
+  {
+    "name": "Kinto",
+    "count": 1
+  },
+  {
+    "name": "Kintsugi",
+    "count": 1
+  },
+  {
+    "name": "Klaytn",
+    "count": 52
+  },
+  {
+    "name": "Kopi",
+    "count": 1
+  },
+  {
+    "name": "Kroma",
+    "count": 4
+  },
+  {
+    "name": "Kucoin",
+    "count": 21
+  },
+  {
+    "name": "Kujira",
+    "count": 11
+  },
+  {
+    "name": "Kusama",
+    "count": 1
+  },
+  {
+    "name": "Lachain Network",
+    "count": 1
+  },
+  {
+    "name": "Lamden",
+    "count": 1
+  },
+  {
+    "name": "Lens",
+    "count": 1
+  },
+  {
+    "name": "Libre",
+    "count": 1
+  },
+  {
+    "name": "Lightlink",
+    "count": 6
+  },
+  {
+    "name": "Linea",
+    "count": 120
+  },
+  {
+    "name": "Lisk",
+    "count": 11
+  },
+  {
+    "name": "Litecoin",
+    "count": 6
+  },
+  {
+    "name": "Loop",
+    "count": 1
+  },
+  {
+    "name": "Lukso",
+    "count": 5
+  },
+  {
+    "name": "Manta",
+    "count": 54
+  },
+  {
+    "name": "Manta Atlantic",
+    "count": 1
+  },
+  {
+    "name": "Mantle",
+    "count": 101
+  },
+  {
+    "name": "Mantra",
+    "count": 6
+  },
+  {
+    "name": "Map",
+    "count": 5
+  },
+  {
+    "name": "Massa",
+    "count": 2
+  },
+  {
+    "name": "Matchain",
+    "count": 3
+  },
+  {
+    "name": "Mayachain",
+    "count": 1
+  },
+  {
+    "name": "Meer",
+    "count": 1
+  },
+  {
+    "name": "Megaeth",
+    "count": 15
+  },
+  {
+    "name": "Merlin",
+    "count": 20
+  },
+  {
+    "name": "Meta",
+    "count": 1
+  },
+  {
+    "name": "Meter",
+    "count": 8
+  },
+  {
+    "name": "Metis",
+    "count": 47
+  },
+  {
+    "name": "Mezo",
+    "count": 4
+  },
+  {
+    "name": "Migaloo",
+    "count": 4
+  },
+  {
+    "name": "Milkomeda",
+    "count": 10
+  },
+  {
+    "name": "Milkomeda A1",
+    "count": 2
+  },
+  {
+    "name": "Milkyway",
+    "count": 2
+  },
+  {
+    "name": "Milkyway Rollup",
+    "count": 1
+  },
+  {
+    "name": "Mind Network",
+    "count": 1
+  },
+  {
+    "name": "Mint",
+    "count": 4
+  },
+  {
+    "name": "Mixin",
+    "count": 7
+  },
+  {
+    "name": "Mode",
+    "count": 61
+  },
+  {
+    "name": "Monad",
+    "count": 78
+  },
+  {
+    "name": "Moonbeam",
+    "count": 43
+  },
+  {
+    "name": "Moonchain",
+    "count": 1
+  },
+  {
+    "name": "Moonriver",
+    "count": 33
+  },
+  {
+    "name": "Morph",
+    "count": 13
+  },
+  {
+    "name": "Movement",
+    "count": 7
+  },
+  {
+    "name": "Mtt Network",
+    "count": 1
+  },
+  {
+    "name": "Multivac",
+    "count": 2
+  },
+  {
+    "name": "Muuchain",
+    "count": 1
+  },
+  {
+    "name": "Mvc",
+    "count": 1
+  },
+  {
+    "name": "Nahmii",
+    "count": 1
+  },
+  {
+    "name": "Naka",
+    "count": 1
+  },
+  {
+    "name": "Namada",
+    "count": 1
+  },
+  {
+    "name": "Near",
+    "count": 31
+  },
+  {
+    "name": "Neo",
+    "count": 6
+  },
+  {
+    "name": "Neo X Mainnet",
+    "count": 1
+  },
+  {
+    "name": "Neo3",
+    "count": 1
+  },
+  {
+    "name": "Neon",
+    "count": 8
+  },
+  {
+    "name": "Neutron",
+    "count": 21
+  },
+  {
+    "name": "Newton",
+    "count": 1
+  },
+  {
+    "name": "Nibiru",
+    "count": 14
+  },
+  {
+    "name": "Noble",
+    "count": 4
+  },
+  {
+    "name": "Nolus",
+    "count": 1
+  },
+  {
+    "name": "Nos",
+    "count": 1
+  },
+  {
+    "name": "Nuls",
+    "count": 2
+  },
+  {
+    "name": "Oasis",
+    "count": 8
+  },
+  {
+    "name": "Oasys",
+    "count": 6
+  },
+  {
+    "name": "Obyte",
+    "count": 9
+  },
+  {
+    "name": "Odyssey",
+    "count": 3
+  },
+  {
+    "name": "Okexchain",
+    "count": 23
+  },
+  {
+    "name": "Omax",
+    "count": 1
+  },
+  {
+    "name": "Ontology",
+    "count": 3
+  },
+  {
+    "name": "Ontologyevm",
+    "count": 4
+  },
+  {
+    "name": "Onus",
+    "count": 2
+  },
+  {
+    "name": "Op_bnb",
+    "count": 24
+  },
+  {
+    "name": "Open",
+    "count": 1
+  },
+  {
+    "name": "Optimism",
+    "count": 262
+  },
+  {
+    "name": "Orai",
+    "count": 2
+  },
+  {
+    "name": "Osmosis",
+    "count": 18
+  },
+  {
+    "name": "Oxfun",
+    "count": 1
+  },
+  {
+    "name": "Palm",
+    "count": 1
+  },
+  {
+    "name": "Parallel",
+    "count": 1
+  },
+  {
+    "name": "Parex",
+    "count": 1
+  },
+  {
+    "name": "Peaq",
+    "count": 2
+  },
+  {
+    "name": "Penumbra",
+    "count": 1
+  },
+  {
+    "name": "Pepu",
+    "count": 1
+  },
+  {
+    "name": "Perennial",
+    "count": 1
+  },
+  {
+    "name": "Persistence",
+    "count": 3
+  },
+  {
+    "name": "Pgn",
+    "count": 1
+  },
+  {
+    "name": "Planq",
+    "count": 2
+  },
+  {
+    "name": "Plasma",
+    "count": 51
+  },
+  {
+    "name": "Plume Mainnet",
+    "count": 37
+  },
+  {
+    "name": "Polkadex",
+    "count": 1
+  },
+  {
+    "name": "Polkadot",
+    "count": 1
+  },
+  {
+    "name": "Polygon",
+    "count": 438
+  },
+  {
+    "name": "Polygon Zkevm",
+    "count": 53
+  },
+  {
+    "name": "Polynomial",
+    "count": 2
+  },
+  {
+    "name": "Prom",
+    "count": 2
+  },
+  {
+    "name": "Proton",
+    "count": 4
+  },
+  {
+    "name": "Provenance",
+    "count": 2
+  },
+  {
+    "name": "Pryzm",
+    "count": 1
+  },
+  {
+    "name": "Pulse",
+    "count": 33
+  },
+  {
+    "name": "Q Protocol",
+    "count": 4
+  },
+  {
+    "name": "Qie",
+    "count": 1
+  },
+  {
+    "name": "Ql1",
+    "count": 1
+  },
+  {
+    "name": "Qubic",
+    "count": 2
+  },
+  {
+    "name": "Quicksilver",
+    "count": 1
+  },
+  {
+    "name": "Radix",
+    "count": 18
+  },
+  {
+    "name": "Rari",
+    "count": 3
+  },
+  {
+    "name": "Re.al",
+    "count": 8
+  },
+  {
+    "name": "Redbelly",
+    "count": 2
+  },
+  {
+    "name": "Redstone",
+    "count": 1
+  },
+  {
+    "name": "Reef",
+    "count": 1
+  },
+  {
+    "name": "Regen",
+    "count": 2
+  },
+  {
+    "name": "Rei",
+    "count": 4
+  },
+  {
+    "name": "Reichain",
+    "count": 1
+  },
+  {
+    "name": "Renec",
+    "count": 2
+  },
+  {
+    "name": "Reya Network",
+    "count": 2
+  },
+  {
+    "name": "Ripple",
+    "count": 16
+  },
+  {
+    "name": "Rollux",
+    "count": 4
+  },
+  {
+    "name": "Ronin",
+    "count": 9
+  },
+  {
+    "name": "Rsk",
+    "count": 29
+  },
+  {
+    "name": "Rss3",
+    "count": 1
+  },
+  {
+    "name": "Saakuru",
+    "count": 1
+  },
+  {
+    "name": "Saga",
+    "count": 7
+  },
+  {
+    "name": "Sapphire",
+    "count": 9
+  },
+  {
+    "name": "Satoshivm",
+    "count": 1
+  },
+  {
+    "name": "Scroll",
+    "count": 88
+  },
+  {
+    "name": "Secret",
+    "count": 7
+  },
+  {
+    "name": "Sei",
+    "count": 55
+  },
+  {
+    "name": "Shape",
+    "count": 1
+  },
+  {
+    "name": "Shibarium",
+    "count": 9
+  },
+  {
+    "name": "Shiden",
+    "count": 3
+  },
+  {
+    "name": "Shido",
+    "count": 1
+  },
+  {
+    "name": "Shimmerevm",
+    "count": 4
+  },
+  {
+    "name": "Silicon Zkevm",
+    "count": 2
+  },
+  {
+    "name": "Smartbch",
+    "count": 10
+  },
+  {
+    "name": "Solana",
+    "count": 236
+  },
+  {
+    "name": "Sommelier",
+    "count": 1
+  },
+  {
+    "name": "Somnia",
+    "count": 8
+  },
+  {
+    "name": "Soneium",
+    "count": 24
+  },
+  {
+    "name": "Songbird",
+    "count": 9
+  },
+  {
+    "name": "Sonic",
+    "count": 125
+  },
+  {
+    "name": "Soon Network",
+    "count": 1
+  },
+  {
+    "name": "Soonbase",
+    "count": 1
+  },
+  {
+    "name": "Sophon",
+    "count": 6
+  },
+  {
+    "name": "Sora",
+    "count": 1
+  },
+  {
+    "name": "Stable",
+    "count": 6
+  },
+  {
+    "name": "Stacks",
+    "count": 14
+  },
+  {
+    "name": "Stafi",
+    "count": 1
+  },
+  {
+    "name": "Starcoin",
+    "count": 2
+  },
+  {
+    "name": "Stargaze",
+    "count": 3
+  },
+  {
+    "name": "Starknet",
+    "count": 30
+  },
+  {
+    "name": "Stellar",
+    "count": 20
+  },
+  {
+    "name": "Step",
+    "count": 1
+  },
+  {
+    "name": "Story",
+    "count": 12
+  },
+  {
+    "name": "Stratis",
+    "count": 3
+  },
+  {
+    "name": "Stride",
+    "count": 2
+  },
+  {
+    "name": "Sui",
+    "count": 72
+  },
+  {
+    "name": "Superposition",
+    "count": 2
+  },
+  {
+    "name": "Superseed",
+    "count": 5
+  },
+  {
+    "name": "Supra",
+    "count": 8
+  },
+  {
+    "name": "Svmbnb",
+    "count": 1
+  },
+  {
+    "name": "Swan",
+    "count": 1
+  },
+  {
+    "name": "Swellchain",
+    "count": 15
+  },
+  {
+    "name": "Sx Rollup",
+    "count": 1
+  },
+  {
+    "name": "Sxnetwork",
+    "count": 1
+  },
+  {
+    "name": "Syscoin",
+    "count": 4
+  },
+  {
+    "name": "Tac",
+    "count": 15
+  },
+  {
+    "name": "Taiko",
+    "count": 36
+  },
+  {
+    "name": "Taraxa",
+    "count": 4
+  },
+  {
+    "name": "Telos",
+    "count": 33
+  },
+  {
+    "name": "Terra",
+    "count": 21
+  },
+  {
+    "name": "Terra2",
+    "count": 14
+  },
+  {
+    "name": "Tezos",
+    "count": 13
+  },
+  {
+    "name": "Theta",
+    "count": 4
+  },
+  {
+    "name": "Thorchain",
+    "count": 3
+  },
+  {
+    "name": "Thundercore",
+    "count": 8
+  },
+  {
+    "name": "Titan",
+    "count": 2
+  },
+  {
+    "name": "Tombchain",
+    "count": 1
+  },
+  {
+    "name": "Tomochain",
+    "count": 6
+  },
+  {
+    "name": "Ton",
+    "count": 56
+  },
+  {
+    "name": "Tron",
+    "count": 31
+  },
+  {
+    "name": "Ultra",
+    "count": 1
+  },
+  {
+    "name": "Ultron",
+    "count": 3
+  },
+  {
+    "name": "Umee",
+    "count": 2
+  },
+  {
+    "name": "Unichain",
+    "count": 50
+  },
+  {
+    "name": "Union",
+    "count": 1
+  },
+  {
+    "name": "Unit0",
+    "count": 4
+  },
+  {
+    "name": "Vana",
+    "count": 2
+  },
+  {
+    "name": "Vechain",
+    "count": 5
+  },
+  {
+    "name": "Velas",
+    "count": 9
+  },
+  {
+    "name": "Venom",
+    "count": 3
+  },
+  {
+    "name": "Verus",
+    "count": 1
+  },
+  {
+    "name": "Vinuchain",
+    "count": 2
+  },
+  {
+    "name": "Virbicoin",
+    "count": 1
+  },
+  {
+    "name": "Voi Network",
+    "count": 2
+  },
+  {
+    "name": "Wanchain",
+    "count": 7
+  },
+  {
+    "name": "Waves",
+    "count": 10
+  },
+  {
+    "name": "Wax",
+    "count": 12
+  },
+  {
+    "name": "Wemix",
+    "count": 8
+  },
+  {
+    "name": "Winr",
+    "count": 2
+  },
+  {
+    "name": "World Chain",
+    "count": 19
+  },
+  {
+    "name": "X Layer",
+    "count": 35
+  },
+  {
+    "name": "Xai",
+    "count": 2
+  },
+  {
+    "name": "Xdai",
+    "count": 69
+  },
+  {
+    "name": "Xdc",
+    "count": 19
+  },
+  {
+    "name": "Xone Chain",
+    "count": 1
+  },
+  {
+    "name": "Xpla",
+    "count": 3
+  },
+  {
+    "name": "Xrpl EVM",
+    "count": 6
+  },
+  {
+    "name": "Yominet",
+    "count": 1
+  },
+  {
+    "name": "Zcash",
+    "count": 3
+  },
+  {
+    "name": "Zeniq",
+    "count": 1
+  },
+  {
+    "name": "Zero Network",
+    "count": 1
+  },
+  {
+    "name": "Zetachain",
+    "count": 23
+  },
+  {
+    "name": "Zigchain",
+    "count": 4
+  },
+  {
+    "name": "Zilliqa",
+    "count": 6
+  },
+  {
+    "name": "Zircuit",
+    "count": 19
+  },
+  {
+    "name": "Zkfair",
+    "count": 6
+  },
+  {
+    "name": "Zklink",
+    "count": 16
+  },
+  {
+    "name": "ZkSync",
+    "count": 79
+  },
+  {
+    "name": "Zora",
+    "count": 5
+  },
+  {
+    "name": "Zyx",
+    "count": 1
+  }
+]
