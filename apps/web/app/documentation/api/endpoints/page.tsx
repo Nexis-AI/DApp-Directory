@@ -14,6 +14,7 @@ import {
 } from "@/components/documentation-page"
 import { Pill, StatCard } from "@/components/page-frame"
 import { SeoJsonLd } from "@/components/seo-json-ld"
+import { DOCUMENTATION_API_BASE_URL } from "@/lib/documentation-config"
 import { getRequestLocale } from "@/lib/i18n/server"
 import { translateObjectText, translateTextBatch } from "@/lib/i18n/translate"
 import {
@@ -26,16 +27,15 @@ import { getOpenApiDocument } from "@/lib/site-data"
 const curlSamples = [
   {
     label: "List Base DeFi dApps",
-    command:
-      "curl 'http://localhost:8787/v1/dapps?chain=Base&category=DeFi&limit=10'",
+    command: `curl '${DOCUMENTATION_API_BASE_URL}/v1/dapps?chain=Base&category=DeFi&limit=10'`,
   },
   {
     label: "Search by text",
-    command: "curl 'http://localhost:8787/v1/dapps?q=prediction%20market&page=1&limit=5'",
+    command: `curl '${DOCUMENTATION_API_BASE_URL}/v1/dapps?q=prediction%20market&page=1&limit=5'`,
   },
   {
     label: "Get a single record",
-    command: "curl 'http://localhost:8787/v1/dapps/uniswap'",
+    command: `curl '${DOCUMENTATION_API_BASE_URL}/v1/dapps/uniswap'`,
   },
 ] as const
 
@@ -185,7 +185,7 @@ export default async function DocumentationApiEndpointsPage() {
                 <p>
                   {baseUrlLabel}:{" "}
                   <span className="font-mono text-foreground">
-                    {document.servers?.[0]?.url ?? "http://localhost:8787"}
+                    {document.servers?.[0]?.url ?? DOCUMENTATION_API_BASE_URL}
                   </span>
                 </p>
                 <p>
@@ -210,7 +210,7 @@ export default async function DocumentationApiEndpointsPage() {
               <StatCard
                 label={endpointsLabel ?? ""}
                 value={endpoints.length.toString()}
-                detail={`Primary server: ${document.servers?.[0]?.url ?? "http://localhost:8787"}`}
+                detail={`Primary server: ${document.servers?.[0]?.url ?? DOCUMENTATION_API_BASE_URL}`}
               />
             </div>
           </div>

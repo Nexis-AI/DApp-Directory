@@ -1,13 +1,18 @@
 import { MCP_RESOURCES, MCP_TOOLS } from "./mcp"
+import {
+  DOCUMENTATION_API_BASE_URL,
+  DOCUMENTATION_MCP_HTTP_URL,
+  replaceDocumentationApiBaseUrl,
+} from "./documentation-config"
 
-export const LOCAL_API_BASE_URL = "http://localhost:8787"
-export const LOCAL_MCP_HTTP_URL = "http://localhost:8788/mcp"
+export const LOCAL_API_BASE_URL = DOCUMENTATION_API_BASE_URL
+export const LOCAL_MCP_HTTP_URL = DOCUMENTATION_MCP_HTTP_URL
 
 export const LOCAL_RUNTIME_COMMANDS = [
   {
     label: "HTTP API",
     command: "pnpm dev:http",
-    description: "Starts the Fastify API at http://localhost:8787.",
+    description: `Starts the Fastify API at ${LOCAL_API_BASE_URL}.`,
   },
   {
     label: "MCP stdio",
@@ -17,7 +22,7 @@ export const LOCAL_RUNTIME_COMMANDS = [
   {
     label: "MCP HTTP",
     command: "MCP_TRANSPORT=http pnpm dev:mcp",
-    description: "Exposes the MCP endpoint at http://localhost:8788/mcp for remote-capable clients.",
+    description: `Exposes the MCP endpoint at ${LOCAL_MCP_HTTP_URL} for remote-capable clients.`,
   },
 ] as const
 
@@ -137,7 +142,10 @@ console.log(payload.data.items.map((item) => item.name))`,
   }))
 }`,
   },
-]
+].map((example) => ({
+  ...example,
+  code: replaceDocumentationApiBaseUrl(example.code),
+}))
 
 export interface IntegrationGuide {
   name: string
@@ -847,4 +855,7 @@ for (const item of payload.data.items) {
   }))
 }`,
   },
-] as const
+].map((card) => ({
+  ...card,
+  code: replaceDocumentationApiBaseUrl(card.code),
+}))

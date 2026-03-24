@@ -4,6 +4,7 @@ import { resolve } from "node:path"
 
 import { cache } from "react"
 
+import { getDocumentationApiBaseUrl } from "@/lib/documentation-config"
 import {
   filterDirectoryItems,
   paginateDirectoryItems,
@@ -93,7 +94,18 @@ export const getCategorySummary = cache(async () =>
 )
 
 export const getOpenApiDocument = cache(async () =>
-  readJson<OpenApiDocument>("openapi/openapi.json"),
+  {
+    const document = await readJson<OpenApiDocument>("openapi/openapi.json")
+    const serverUrl = getDocumentationApiBaseUrl()
+
+    return {
+      ...document,
+      servers: [
+        { url: serverUrl },
+        ...(document.servers ?? []).filter((server) => server.url !== serverUrl),
+      ],
+    }
+  },
 )
 
 export const getDirectoryPageData = async (

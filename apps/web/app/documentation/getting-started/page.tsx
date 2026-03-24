@@ -16,6 +16,10 @@ import { DocumentationPlaygrounds } from "@/components/documentation-playgrounds
 import { Pill, StatCard } from "@/components/page-frame"
 import { SeoJsonLd } from "@/components/seo-json-ld"
 import {
+  DOCUMENTATION_API_BASE_URL,
+  DOCUMENTATION_MCP_HTTP_URL,
+} from "@/lib/documentation-config"
+import {
   getLocalizedHttpGatewayPresets,
   getLocalizedMcpResourcePresets,
   getLocalizedMcpToolPresets,
@@ -164,8 +168,8 @@ export default async function DocumentationGettingStartedPage() {
                 <CardDescription>{localRuntimeDescription}</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                <Pill>{apiBaseLabel}: http://localhost:8787</Pill>
-                <Pill variant="secondary">{mcpHttpLabel}: http://localhost:8788/mcp</Pill>
+                <Pill>{apiBaseLabel}: {DOCUMENTATION_API_BASE_URL}</Pill>
+                <Pill variant="secondary">{mcpHttpLabel}: {DOCUMENTATION_MCP_HTTP_URL}</Pill>
                 <Pill variant="secondary">{mcpStdioLabel}: pnpm dev:mcp</Pill>
               </CardContent>
             </Card>

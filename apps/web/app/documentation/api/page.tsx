@@ -15,6 +15,7 @@ import {
 import { DocumentationPage, DocumentationSection } from "@/components/documentation-page"
 import { Pill, StatCard } from "@/components/page-frame"
 import { SeoJsonLd } from "@/components/seo-json-ld"
+import { DOCUMENTATION_API_BASE_URL } from "@/lib/documentation-config"
 import { getLocalizedImplementationGuideCards } from "@/lib/documentation-i18n"
 import { getRequestLocale } from "@/lib/i18n/server"
 import { localizePath } from "@/lib/i18n/pathnames"
@@ -162,7 +163,7 @@ export default async function DocumentationApiOverviewPage() {
                 <CardDescription>{contractCardDescription}</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                <Pill>{baseUrlLabel}: http://localhost:8787</Pill>
+                <Pill>{baseUrlLabel}: {DOCUMENTATION_API_BASE_URL}</Pill>
                 <Pill variant="secondary">{openApiLabel}: /openapi.json</Pill>
                 <Pill variant="secondary">{responseLabel}: {"{ success, data, meta? }"}</Pill>
               </CardContent>

@@ -14,6 +14,7 @@ import {
   DocumentationSection,
 } from "@/components/documentation-page"
 import { SeoJsonLd } from "@/components/seo-json-ld"
+import { DOCUMENTATION_API_BASE_URL } from "@/lib/documentation-config"
 import { getLocalizedUsageExamples } from "@/lib/documentation-i18n"
 import { getRequestLocale } from "@/lib/i18n/server"
 import { translateObjectText, translateTextBatch } from "@/lib/i18n/translate"
@@ -28,13 +29,13 @@ const quickRequests = [
     badge: "curl",
     title: "List DeFi dApps on Base",
     description: "Useful for smoke testing the catalog quickly from the terminal.",
-    code: `curl "http://localhost:8787/v1/dapps?chain=Base&category=DeFi&limit=5"`,
+    code: `curl "${DOCUMENTATION_API_BASE_URL}/v1/dapps?chain=Base&category=DeFi&limit=5"`,
   },
   {
     badge: "curl",
     title: "List chains",
     description: "Good for selector bootstrapping or data validation.",
-    code: `curl "http://localhost:8787/v1/chains"`,
+    code: `curl "${DOCUMENTATION_API_BASE_URL}/v1/chains"`,
   },
   {
     badge: "MCP",
