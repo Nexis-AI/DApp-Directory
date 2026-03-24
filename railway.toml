@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "pnpm build"
+
+[deploy]
+startCommand = "pnpm start"
+healthcheckPath = "/v1/dapps"
+healthcheckTimeout = 100
+
+[phases.setup]
+nixPkgs = ["pnpm", "nodejs_22"]
