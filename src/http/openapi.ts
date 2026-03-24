@@ -1,3 +1,35 @@
+type RuntimeEnv = Record<string, string | undefined>;
+
+const DEFAULT_OPENAPI_SERVER_URL = "http://localhost:8787";
+
+const normalizeAbsoluteUrl = (value: string | undefined): string | undefined => {
+  const trimmed = value?.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  try {
+    return new URL(trimmed).toString().replace(/\/+$/, "");
+  } catch {
+    return undefined;
+  }
+};
+
+const getRailwayPublicUrl = (value: string | undefined): string | undefined => {
+  const trimmed = value?.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  return `https://${trimmed.replace(/^https?:\/\//, "").replace(/\/+$/, "")}`;
+};
+
+export const getOpenApiServerUrl = (env: RuntimeEnv = process.env): string =>
+  normalizeAbsoluteUrl(env.API_BASE_URL) ??
+  normalizeAbsoluteUrl(env.PUBLIC_API_BASE_URL) ??
+  getRailwayPublicUrl(env.RAILWAY_PUBLIC_DOMAIN) ??
+  DEFAULT_OPENAPI_SERVER_URL;
+
 const socialLinksSchema = {
   type: "object",
   additionalProperties: false,
@@ -29,7 +61,7 @@ const metaSchema = {
   },
 } as const;
 
-export const buildOpenApiDocument = () => ({
+export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
   openapi: "3.1.0",
   info: {
     title: "Nexis dApps Directory API",
@@ -39,7 +71,7 @@ export const buildOpenApiDocument = () => ({
   },
   servers: [
     {
-      url: "http://localhost:8787",
+      url: serverUrl,
     },
   ],
   paths: {

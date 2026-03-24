@@ -19,6 +19,10 @@ import {
 import { Pill, StatCard } from "@/components/page-frame"
 import { SeoJsonLd } from "@/components/seo-json-ld"
 import {
+  DOCUMENTATION_API_BASE_URL,
+  DOCUMENTATION_MCP_HTTP_URL,
+} from "@/lib/documentation-config"
+import {
   getDocumentationNavGroups,
   getLocalizedClientGuides,
   getLocalizedDocumentationReferenceCards,
@@ -98,13 +102,13 @@ export default async function DocumentationPage() {
       "Open the section that matches your immediate task.",
       "Use the hover sidebar to navigate by section, or jump directly into the routes below if you already know the next step.",
       "Get Started",
-      "Open API Reference",
+        "Open API Reference",
         "Open Client Tutorials",
         "HTTP surface",
         `${endpointCount} GET routes`,
         "MCP surface",
         `${mcpTools.length} tools`,
-        `${mcpResources.length} resources with HTTP mode at http://localhost:8788/mcp.`,
+        `${mcpResources.length} resources with HTTP mode at ${DOCUMENTATION_MCP_HTTP_URL}.`,
         "Client tutorials",
       "Dedicated setup pages for IDEs, assistants, CLIs, and remote MCP clients.",
       "Route map",
@@ -223,7 +227,7 @@ export default async function DocumentationPage() {
               <StatCard
                 label={httpSurfaceLabel ?? ""}
                 value={httpSurfaceValue ?? ""}
-                detail={`Primary API base: http://localhost:8787`}
+                detail={`Primary API base: ${DOCUMENTATION_API_BASE_URL}`}
               />
               <StatCard
                 label={mcpSurfaceLabel ?? ""}

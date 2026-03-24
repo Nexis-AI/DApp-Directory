@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import {
+  DOCUMENTATION_API_BASE_URL,
+  getDocumentationUpstreamHosts,
+} from "@/lib/documentation-config"
 import { buildDocumentationGatewayUrl } from "@/lib/documentation-gateway"
 import { siteUrl } from "@/lib/seo"
 
@@ -17,6 +21,7 @@ const readRequestBody = async (request: NextRequest) => {
 const buildAllowedHosts = (request: NextRequest) => {
   const allowedHosts = new Set(["127.0.0.1", "0.0.0.0", "localhost"])
   allowedHosts.add(request.nextUrl.hostname)
+  getDocumentationUpstreamHosts().forEach((host) => allowedHosts.add(host))
 
   try {
     allowedHosts.add(new URL(siteUrl).hostname)
@@ -42,7 +47,7 @@ export async function POST(request: NextRequest) {
   }
 
   const baseUrl =
-    typeof body.baseUrl === "string" ? body.baseUrl : "http://localhost:8787"
+    typeof body.baseUrl === "string" ? body.baseUrl : DOCUMENTATION_API_BASE_URL
   const path = typeof body.path === "string" ? body.path : "/health"
 
   try {

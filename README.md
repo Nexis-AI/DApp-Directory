@@ -53,6 +53,13 @@ Run the HTTP API:
 pnpm dev:http
 ```
 
+Run the compiled HTTP API:
+
+```bash
+pnpm build
+pnpm start:http
+```
+
 Run the MCP server over stdio:
 
 ```bash
@@ -63,6 +70,13 @@ Run the MCP server over HTTP:
 
 ```bash
 MCP_TRANSPORT=http pnpm dev:mcp
+```
+
+Run the compiled MCP server over HTTP:
+
+```bash
+pnpm build
+pnpm start:mcp:http
 ```
 
 Default local endpoints:
@@ -104,6 +118,14 @@ For remote-capable clients or browser-based tooling, expose MCP over HTTP:
 
 ```bash
 MCP_TRANSPORT=http MCP_HOST=0.0.0.0 MCP_PORT=8788 pnpm dev:mcp
+```
+
+For Railway or other production-style environments, the compiled HTTP entrypoint
+will honor `PORT` automatically when `MCP_PORT` is unset:
+
+```bash
+pnpm build
+pnpm start:mcp:http
 ```
 
 ### 4. Regenerate the catalog
@@ -311,6 +333,8 @@ Supported locales: `en`, `es`, `zh`, `hi`, `pt`, `nl`, `de`, `ar`, `ja`, `id`, `
 | `pnpm web:typecheck` | Type-check the web app |
 | `pnpm dev:http` | Run the local HTTP API |
 | `pnpm dev:mcp` | Run the local MCP server |
+| `pnpm start:http` | Run the compiled HTTP API |
+| `pnpm start:mcp:http` | Run the compiled MCP server over HTTP |
 | `pnpm scrape` | Fetch source data and rebuild generated artifacts |
 | `pnpm openapi:generate` | Regenerate `openapi/openapi.json` |
 | `pnpm test` | Run Vitest |

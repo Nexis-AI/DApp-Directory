@@ -9,10 +9,14 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/server.js",
+    "start:http": "node dist/src/http/dev.js",
+    "start:mcp:http": "MCP_TRANSPORT=http node dist/src/mcp/dev.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "scrape": "tsx src/cli/scrape.ts",
     "openapi:generate": "tsx src/cli/generate-openapi.ts",
+    "dev": "tsx src/server.ts",
     "dev:http": "tsx src/http/dev.ts",
     "dev:mcp": "tsx src/mcp/dev.ts",
     "web:dev": "pnpm --filter web dev",
@@ -20,10 +24,11 @@
     "web:typecheck": "pnpm --filter web typecheck"
   },
   "dependencies": {
+    "@fastify/http-proxy": "^11.4.2",
     "cheerio": "^1.1.2",
+    "fast-xml-parser": "^5.2.5",
     "fastify": "^5.6.1",
     "fastmcp": "^3.23.1",
-    "fast-xml-parser": "^5.2.5",
     "p-limit": "^7.1.1",
     "playwright": "^1.54.2",
     "zod": "^3.25.76"
