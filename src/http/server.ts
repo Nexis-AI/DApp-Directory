@@ -10,6 +10,7 @@ import {
 } from "../i18n/config.js";
 import { translateTextBatch } from "../i18n/translate.js";
 import { buildOpenApiDocument } from "./openapi.js";
+import { supabase } from "../utils/supabase.js";
 
 export interface CreateHttpServerOptions {
   catalog: CatalogItem[];
@@ -154,5 +155,94 @@ export const createHttpServer = ({
     return success({ items }, { total: items.length });
   });
 
+  server.get("/v1/airdrops", async (request, reply) => {
+    const { chain, category, page, limit } = request.query as Record<string, string | undefined>;
+    const parsedPage = Math.max(1, Number.parseInt(page ?? "1", 10) || 1);
+    const parsedLimit = Math.min(250, Math.max(1, Number.parseInt(limit ?? "50", 10) || 50));
+    const start = (parsedPage - 1) * parsedLimit;
+
+    let query = supabase.from("airdrops").select("*", { count: "exact" });
+    if (chain) query = query.ilike("chain", `%${chain}%`);
+    if (category) query = query.ilike("category", `%${category}%`);
+    
+    query = query.range(start, start + parsedLimit - 1).order("created_at", { ascending: false });
+
+    const { data, error: dbError, count } = await query;
+
+    if (dbError) {
+      reply.code(500);
+      return error("DATABASE_ERROR", dbError.message);
+    }
+
+    return success(
+      { items: data },
+      {
+        page: parsedPage,
+        limit: parsedLimit,
+        total: count ?? 0,
+        hasMore: count ? start + parsedLimit < count : false,
+      }
+    );
+  });
+
+  server.post("/v1/user-airdrops", async (request, reply) => {
+    const { user_id, airdrop_id, evm_wallet_address, solana_wallet_address } = request.body as any;
+    
+    if (!user_id || !airdrop_id) {
+      reply.code(400);
+      return error("BAD_REQUEST", "user_id and airdrop_id are required");
+    }
+
+    const { data, error: dbError } = await supabase
+      .from("user_airdrops")
+      .upsert(
+        {
+          user_id,
+          airdrop_id,
+          evm_wallet_address,
+          solana_wallet_address,
+          updated_at: new Date().toISOString()
+        },
+        { onConflict: "user_id, airdrop_id" }
+      )
+      .select()
+      .single();
+
+    if (dbError) {
+      reply.code(500);
+      return error("DATABASE_ERROR", dbError.message);
+    }
+
+    return success(data);
+  });
+
+  server.get("/v1/user-airdrops/:user_id", async (request, reply) => {
+    const { user_id } = request.params as { user_id: string };
+
+    const { data, error: dbError } = await supabase
+      .from("user_airdrops")
+      .select(`
+        *,
+        airdrops (
+          name,
+          logo_url,
+          rewards,
+          chain,
+          category
+        )
+      `)
+      .eq("user_id", user_id)
+      .order("created_at", { ascending: false });
+
+    if (dbError) {
+      reply.code(500);
+      return error("DATABASE_ERROR", dbError.message);
+    }
+
+    return success({ items: data });
+  });
+
   return server;
+
+
 };

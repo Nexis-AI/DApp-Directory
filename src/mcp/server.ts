@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { CatalogItem } from "../catalog/types.js";
 import { buildArtifacts } from "../catalog/build-artifacts.js";
 import { queryCatalog } from "../catalog/query.js";
+import { supabase } from "../utils/supabase.js";
 
 export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
   const server = new FastMCP({
@@ -59,6 +60,89 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
     parameters: z.object({}),
     annotations: { readOnlyHint: true },
     execute: async () => JSON.stringify(artifacts.categories, null, 2),
+  });
+
+  server.addTool({
+    name: "airdrops_search",
+    description: "Search active airdrops by chain, category, or keyword.",
+    parameters: z.object({
+      chain: z.string().optional(),
+      category: z.string().optional(),
+      limit: z.number().int().min(1).max(100).optional(),
+    }),
+    annotations: { readOnlyHint: true },
+    execute: async ({ chain, category, limit }) => {
+      let query = supabase.from("airdrops").select("*");
+      if (chain) query = query.ilike("chain", `%${chain}%`);
+      if (category) query = query.ilike("category", `%${category}%`);
+      query = query.limit(limit ?? 20).order("created_at", { ascending: false });
+      
+      const { data, error } = await query;
+      if (error) return `Error fetching airdrops: ${error.message}`;
+      return JSON.stringify(data, null, 2);
+    },
+  });
+
+  server.addTool({
+    name: "airdrops_get",
+    description: "Get detailed information about a specific airdrop by its name.",
+    parameters: z.object({
+      name: z.string(),
+    }),
+    annotations: { readOnlyHint: true },
+    execute: async ({ name }) => {
+      const { data, error } = await supabase.from("airdrops").select("*").ilike("name", name).single();
+      if (error) return `Airdrop not found: ${error.message}`;
+      return JSON.stringify(data, null, 2);
+    },
+  });
+
+  server.addTool({
+    name: "user_airdrops_log",
+    description: "Log a user's participation in an airdrop.",
+    parameters: z.object({
+      user_id: z.string(),
+      airdrop_id: z.string(),
+      evm_wallet_address: z.string().optional(),
+      solana_wallet_address: z.string().optional(),
+    }),
+    execute: async ({ user_id, airdrop_id, evm_wallet_address, solana_wallet_address }) => {
+      const { data, error } = await supabase
+        .from("user_airdrops")
+        .upsert(
+          { 
+            user_id, 
+            airdrop_id, 
+            evm_wallet_address, 
+            solana_wallet_address,
+            updated_at: new Date().toISOString()
+          },
+          { onConflict: "user_id, airdrop_id" }
+        )
+        .select()
+        .single();
+        
+      if (error) return `Error logging airdrop: ${error.message}`;
+      return JSON.stringify(data, null, 2);
+    },
+  });
+
+  server.addTool({
+    name: "user_airdrops_list",
+    description: "Get a list of all airdrops a user is participating in.",
+    parameters: z.object({
+      user_id: z.string(),
+    }),
+    annotations: { readOnlyHint: true },
+    execute: async ({ user_id }) => {
+      const { data, error } = await supabase
+        .from("user_airdrops")
+        .select("*, airdrops(name, logo_url, chain)")
+        .eq("user_id", user_id);
+        
+      if (error) return `Error fetching user airdrops: ${error.message}`;
+      return JSON.stringify(data, null, 2);
+    },
   });
 
   server.addResource({
