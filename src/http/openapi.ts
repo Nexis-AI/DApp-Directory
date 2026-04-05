@@ -58,6 +58,7 @@ const metaSchema = {
     limit: { type: "integer", minimum: 1 },
     total: { type: "integer", minimum: 0 },
     hasMore: { type: "boolean" },
+    generatedAt: { anyOf: [{ type: "string", format: "date-time" }, { type: "null" }] },
   },
 } as const;
 
@@ -152,6 +153,35 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
               "application/json": {
                 schema: {
                   $ref: "#/components/schemas/DappListResponse",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/v1/dapps/featured": {
+      get: {
+        summary: "List featured dApps",
+        parameters: [
+          {
+            in: "query",
+            name: "lang",
+            schema: {
+              type: "string",
+              enum: ["en", "es", "zh", "hi", "pt", "nl", "de", "ar", "ja", "id", "fr", "bn"],
+              default: "en",
+            },
+            description: "Optional locale used to translate human-readable catalog fields.",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Curated featured dApps",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/DappFeaturedResponse",
                 },
               },
             },
@@ -305,6 +335,62 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
           updatedAt: { type: "string", format: "date-time" },
         },
       },
+      MobileCatalogItem: {
+        type: "object",
+        additionalProperties: false,
+        required: [
+          "id",
+          "slug",
+          "name",
+          "description",
+          "categories",
+          "chains",
+          "walletFamilies",
+          "launchUrl",
+          "inAppBrowserAllowed",
+          "shortDescription",
+          "longDescription",
+          "sourceUrls",
+          "updatedAt",
+        ],
+        properties: {
+          id: { type: "string" },
+          slug: { type: "string" },
+          name: { type: "string" },
+          description: { type: "string" },
+          logoUrl: { anyOf: [{ type: "string", format: "uri" }, { type: "null" }] },
+          webUrl: { anyOf: [{ type: "string", format: "uri" }, { type: "null" }] },
+          mobileUrl: { anyOf: [{ type: "string", format: "uri" }, { type: "null" }] },
+          launchUrl: { type: "string" },
+          socials: { $ref: "#/components/schemas/SocialLinks" },
+          categories: {
+            type: "array",
+            items: { type: "string" },
+          },
+          chains: {
+            type: "array",
+            items: { type: "string" },
+          },
+          walletFamilies: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["evm", "solana"],
+            },
+          },
+          featuredRank: {
+            anyOf: [{ type: "integer", minimum: 1 }, { type: "null" }],
+          },
+          inAppBrowserAllowed: { type: "boolean" },
+          shortDescription: { type: "string" },
+          longDescription: { type: "string" },
+          sourceUrls: {
+            type: "array",
+            items: { type: "string", format: "uri" },
+          },
+          updatedAt: { type: "string", format: "date-time" },
+        },
+      },
       CountSummary: {
         type: "object",
         additionalProperties: false,
@@ -327,7 +413,27 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
             properties: {
               items: {
                 type: "array",
-                items: { $ref: "#/components/schemas/CatalogItem" },
+                items: { $ref: "#/components/schemas/MobileCatalogItem" },
+              },
+            },
+          },
+          meta: metaSchema,
+        },
+      },
+      DappFeaturedResponse: {
+        type: "object",
+        additionalProperties: false,
+        required: ["success", "data"],
+        properties: {
+          success: { type: "boolean", const: true },
+          data: {
+            type: "object",
+            additionalProperties: false,
+            required: ["items"],
+            properties: {
+              items: {
+                type: "array",
+                items: { $ref: "#/components/schemas/MobileCatalogItem" },
               },
             },
           },
@@ -340,7 +446,8 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
         required: ["success", "data"],
         properties: {
           success: { type: "boolean", const: true },
-          data: { $ref: "#/components/schemas/CatalogItem" },
+          data: { $ref: "#/components/schemas/MobileCatalogItem" },
+          meta: metaSchema,
         },
       },
       ChainListResponse: {

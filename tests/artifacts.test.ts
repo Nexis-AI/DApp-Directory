@@ -51,4 +51,23 @@ describe("buildArtifacts", () => {
       { count: 1, name: "Polygon" },
     ]);
   });
+
+  test("sorts higher-volume buckets before lower-volume buckets", () => {
+    const baseItem = catalog[0];
+    expect(baseItem).toBeDefined();
+    const duplicatePolygonItem: CatalogItem = {
+      ...baseItem!,
+      id: "dapp_000003",
+      slug: "polymarket-2",
+      name: "Polymarket 2",
+    };
+
+    const artifacts = buildArtifacts([
+      ...catalog,
+      duplicatePolygonItem,
+    ]);
+
+    expect(artifacts.categories[0]).toEqual({ count: 3, name: "DeFi" });
+    expect(artifacts.chains[0]).toEqual({ count: 2, name: "Polygon" });
+  });
 });

@@ -4,7 +4,7 @@ import { z } from "zod";
 import type { CatalogItem } from "../catalog/types.js";
 import { buildArtifacts } from "../catalog/build-artifacts.js";
 import { queryCatalog } from "../catalog/query.js";
-import { supabase } from "../utils/supabase.js";
+import { getSupabase } from "../utils/supabase.js";
 
 export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
   const server = new FastMCP({
@@ -72,6 +72,7 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
     }),
     annotations: { readOnlyHint: true },
     execute: async ({ chain, category, limit }) => {
+      const supabase = getSupabase();
       let query = supabase.from("airdrops").select("*");
       if (chain) query = query.ilike("chain", `%${chain}%`);
       if (category) query = query.ilike("category", `%${category}%`);
@@ -91,6 +92,7 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
     }),
     annotations: { readOnlyHint: true },
     execute: async ({ name }) => {
+      const supabase = getSupabase();
       const { data, error } = await supabase.from("airdrops").select("*").ilike("name", name).single();
       if (error) return `Airdrop not found: ${error.message}`;
       return JSON.stringify(data, null, 2);
@@ -107,6 +109,7 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
       solana_wallet_address: z.string().optional(),
     }),
     execute: async ({ user_id, airdrop_id, evm_wallet_address, solana_wallet_address }) => {
+      const supabase = getSupabase();
       const { data, error } = await supabase
         .from("user_airdrops")
         .upsert(
@@ -135,6 +138,7 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
     }),
     annotations: { readOnlyHint: true },
     execute: async ({ user_id }) => {
+      const supabase = getSupabase();
       const { data, error } = await supabase
         .from("user_airdrops")
         .select("*, airdrops(name, logo_url, chain)")
