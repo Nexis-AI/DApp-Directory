@@ -137,6 +137,44 @@ describe("HTTP API", () => {
     });
   });
 
+  test("returns browse rows with category previews", async () => {
+    const response = await server.inject({
+      method: "GET",
+      url: "/v1/dapps/browse?chainLimit=3&categoryLimit=2",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({
+      success: true,
+      data: {
+        items: [
+          {
+            chain: "Ethereum",
+            total: 1,
+            categories: expect.arrayContaining([
+              expect.objectContaining({
+                title: "DeFi",
+                total: 1,
+              }),
+            ]),
+          },
+          {
+            chain: "Optimism",
+            total: 1,
+          },
+          {
+            chain: "Polygon",
+            total: 1,
+          },
+        ],
+      },
+      meta: {
+        generatedAt: "2026-03-11T00:07:02.531Z",
+        total: 3,
+      },
+    });
+  });
+
   test("publishes an OpenAPI document", async () => {
     const response = await server.inject({
       method: "GET",
@@ -151,6 +189,7 @@ describe("HTTP API", () => {
       },
       paths: {
         "/v1/dapps": expect.any(Object),
+        "/v1/dapps/browse": expect.any(Object),
         "/v1/dapps/featured": expect.any(Object),
         "/v1/dapps/{id}": expect.any(Object),
       },

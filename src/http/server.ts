@@ -2,8 +2,10 @@ import fastify, { type FastifyInstance } from "fastify";
 
 import { buildArtifacts } from "../catalog/build-artifacts.js";
 import {
+  buildBrowseRows,
   getFeaturedCatalogItems,
   type GeneratedCatalogMeta,
+  type MobileCatalogBrowseRow,
   type MobileCatalogItem,
   toMobileCatalog,
 } from "../catalog/mobile-contract.js";
@@ -38,6 +40,20 @@ const error = (code: string, message: string) => ({
     message,
   },
 });
+
+const getSupabaseOrError = () => {
+  try {
+    return {
+      supabase: getSupabase(),
+      response: null,
+    } as const;
+  } catch {
+    return {
+      supabase: null,
+      response: error("SERVICE_UNAVAILABLE", "Airdrop service is not configured."),
+    } as const;
+  }
+};
 
 export const createHttpServer = ({
   catalog,
@@ -97,6 +113,46 @@ export const createHttpServer = ({
       ...item,
       name: translatedNames[index] ?? item.name,
     }));
+  };
+
+  const localizeBrowseRows = async (
+    rows: MobileCatalogBrowseRow[],
+    locale: SupportedLocale,
+  ): Promise<MobileCatalogBrowseRow[]> => {
+    if (locale === DEFAULT_LOCALE || rows.length === 0) {
+      return rows;
+    }
+
+    const translatedCategoryTitles = await translateTextBatch({
+      texts: rows.flatMap((row) => row.categories.map((category) => category.title)),
+      targetLocale: locale,
+    });
+
+    let categoryIndex = 0;
+
+    return Promise.all(
+      rows.map(async (row, rowIndex) => {
+        const localizedCategories = await Promise.all(
+          row.categories.map(async (category) => {
+            const translatedTitle = translatedCategoryTitles[categoryIndex] ?? category.title;
+            categoryIndex += 1;
+            const localizedDapps = await localizeCatalogItems(category.dapps, locale);
+
+            return {
+              ...category,
+              category: translatedTitle,
+              title: translatedTitle,
+              dapps: localizedDapps,
+            };
+          }),
+        );
+
+        return {
+          ...row,
+          categories: localizedCategories,
+        };
+      }),
+    );
   };
 
   server.get("/health", async () => success({ status: "ok" }));
@@ -162,6 +218,31 @@ export const createHttpServer = ({
     return payload;
   });
 
+  server.get("/v1/dapps/browse", async (request, reply) => {
+    const { lang, chainLimit, categoryLimit } = request.query as Record<string, string | undefined>;
+    const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
+    const parsedChainLimit = Math.min(
+      24,
+      Math.max(1, Number.parseInt(chainLimit ?? "12", 10) || 12),
+    );
+    const parsedCategoryLimit = Math.min(
+      12,
+      Math.max(1, Number.parseInt(categoryLimit ?? "8", 10) || 8),
+    );
+    const rows = buildBrowseRows(mobileCatalog, artifacts.chains, {
+      chainLimit: parsedChainLimit,
+      categoryLimit: parsedCategoryLimit,
+    });
+    const localizedRows = await localizeBrowseRows(rows, locale);
+    const payload = success({ items: localizedRows }, buildCatalogMeta({ total: localizedRows.length }));
+
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
+  });
+
   server.get("/v1/dapps/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     const { lang } = request.query as Record<string, string | undefined>;
@@ -208,7 +289,12 @@ export const createHttpServer = ({
   });
 
   server.get("/v1/airdrops", async (request, reply) => {
-    const supabase = getSupabase();
+    const dependency = getSupabaseOrError();
+    if (!dependency.supabase) {
+      reply.code(503);
+      return dependency.response;
+    }
+    const { supabase } = dependency;
     const { chain, category, page, limit } = request.query as Record<string, string | undefined>;
     const parsedPage = Math.max(1, Number.parseInt(page ?? "1", 10) || 1);
     const parsedLimit = Math.min(250, Math.max(1, Number.parseInt(limit ?? "50", 10) || 50));
@@ -239,7 +325,12 @@ export const createHttpServer = ({
   });
 
   server.post("/v1/user-airdrops", async (request, reply) => {
-    const supabase = getSupabase();
+    const dependency = getSupabaseOrError();
+    if (!dependency.supabase) {
+      reply.code(503);
+      return dependency.response;
+    }
+    const { supabase } = dependency;
     const { user_id, airdrop_id, evm_wallet_address, solana_wallet_address } = request.body as any;
     
     if (!user_id || !airdrop_id) {
@@ -271,7 +362,12 @@ export const createHttpServer = ({
   });
 
   server.get("/v1/user-airdrops/:user_id", async (request, reply) => {
-    const supabase = getSupabase();
+    const dependency = getSupabaseOrError();
+    if (!dependency.supabase) {
+      reply.code(503);
+      return dependency.response;
+    }
+    const { supabase } = dependency;
     const { user_id } = request.params as { user_id: string };
 
     const { data, error: dbError } = await supabase

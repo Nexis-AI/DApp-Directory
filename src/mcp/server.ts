@@ -6,6 +6,18 @@ import { buildArtifacts } from "../catalog/build-artifacts.js";
 import { queryCatalog } from "../catalog/query.js";
 import { getSupabase } from "../utils/supabase.js";
 
+const withSupabase = async <T>(run: (supabase: ReturnType<typeof getSupabase>) => Promise<T>) => {
+  try {
+    return await run(getSupabase());
+  } catch (error) {
+    if (error instanceof Error) {
+      return `Supabase is not configured: ${error.message}`;
+    }
+
+    return "Supabase is not configured.";
+  }
+};
+
 export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
   const server = new FastMCP({
     name: "nexis-dapps-directory",
@@ -71,17 +83,17 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
       limit: z.number().int().min(1).max(100).optional(),
     }),
     annotations: { readOnlyHint: true },
-    execute: async ({ chain, category, limit }) => {
-      const supabase = getSupabase();
-      let query = supabase.from("airdrops").select("*");
-      if (chain) query = query.ilike("chain", `%${chain}%`);
-      if (category) query = query.ilike("category", `%${category}%`);
-      query = query.limit(limit ?? 20).order("created_at", { ascending: false });
-      
-      const { data, error } = await query;
-      if (error) return `Error fetching airdrops: ${error.message}`;
-      return JSON.stringify(data, null, 2);
-    },
+    execute: async ({ chain, category, limit }) =>
+      withSupabase(async (supabase) => {
+        let query = supabase.from("airdrops").select("*");
+        if (chain) query = query.ilike("chain", `%${chain}%`);
+        if (category) query = query.ilike("category", `%${category}%`);
+        query = query.limit(limit ?? 20).order("created_at", { ascending: false });
+
+        const { data, error } = await query;
+        if (error) return `Error fetching airdrops: ${error.message}`;
+        return JSON.stringify(data, null, 2);
+      }),
   });
 
   server.addTool({
@@ -91,12 +103,12 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
       name: z.string(),
     }),
     annotations: { readOnlyHint: true },
-    execute: async ({ name }) => {
-      const supabase = getSupabase();
-      const { data, error } = await supabase.from("airdrops").select("*").ilike("name", name).single();
-      if (error) return `Airdrop not found: ${error.message}`;
-      return JSON.stringify(data, null, 2);
-    },
+    execute: async ({ name }) =>
+      withSupabase(async (supabase) => {
+        const { data, error } = await supabase.from("airdrops").select("*").ilike("name", name).single();
+        if (error) return `Airdrop not found: ${error.message}`;
+        return JSON.stringify(data, null, 2);
+      }),
   });
 
   server.addTool({
@@ -108,26 +120,26 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
       evm_wallet_address: z.string().optional(),
       solana_wallet_address: z.string().optional(),
     }),
-    execute: async ({ user_id, airdrop_id, evm_wallet_address, solana_wallet_address }) => {
-      const supabase = getSupabase();
-      const { data, error } = await supabase
-        .from("user_airdrops")
-        .upsert(
-          { 
-            user_id, 
-            airdrop_id, 
-            evm_wallet_address, 
-            solana_wallet_address,
-            updated_at: new Date().toISOString()
-          },
-          { onConflict: "user_id, airdrop_id" }
-        )
-        .select()
-        .single();
-        
-      if (error) return `Error logging airdrop: ${error.message}`;
-      return JSON.stringify(data, null, 2);
-    },
+    execute: async ({ user_id, airdrop_id, evm_wallet_address, solana_wallet_address }) =>
+      withSupabase(async (supabase) => {
+        const { data, error } = await supabase
+          .from("user_airdrops")
+          .upsert(
+            {
+              user_id,
+              airdrop_id,
+              evm_wallet_address,
+              solana_wallet_address,
+              updated_at: new Date().toISOString(),
+            },
+            { onConflict: "user_id, airdrop_id" },
+          )
+          .select()
+          .single();
+
+        if (error) return `Error logging airdrop: ${error.message}`;
+        return JSON.stringify(data, null, 2);
+      }),
   });
 
   server.addTool({
@@ -137,16 +149,16 @@ export const createMcpServer = (catalog: CatalogItem[]): FastMCP => {
       user_id: z.string(),
     }),
     annotations: { readOnlyHint: true },
-    execute: async ({ user_id }) => {
-      const supabase = getSupabase();
-      const { data, error } = await supabase
-        .from("user_airdrops")
-        .select("*, airdrops(name, logo_url, chain)")
-        .eq("user_id", user_id);
-        
-      if (error) return `Error fetching user airdrops: ${error.message}`;
-      return JSON.stringify(data, null, 2);
-    },
+    execute: async ({ user_id }) =>
+      withSupabase(async (supabase) => {
+        const { data, error } = await supabase
+          .from("user_airdrops")
+          .select("*, airdrops(name, logo_url, chain)")
+          .eq("user_id", user_id);
+
+        if (error) return `Error fetching user airdrops: ${error.message}`;
+        return JSON.stringify(data, null, 2);
+      }),
   });
 
   server.addResource({
