@@ -308,6 +308,14 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
         parameters: [
           {
             in: "query",
+            name: "chain",
+            schema: {
+              type: "string",
+            },
+            description: "Optional chain name used to scope category counts to a single chain.",
+          },
+          {
+            in: "query",
             name: "lang",
             schema: {
               type: "string",

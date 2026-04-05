@@ -175,6 +175,34 @@ describe("HTTP API", () => {
     });
   });
 
+  test("scopes category summaries to a selected chain", async () => {
+    const response = await server.inject({
+      method: "GET",
+      url: "/v1/categories?chain=polygon",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({
+      success: true,
+      data: {
+        items: [
+          {
+            name: "DeFi",
+            count: 1,
+          },
+          {
+            name: "Prediction Markets",
+            count: 1,
+          },
+        ],
+      },
+      meta: {
+        generatedAt: "2026-03-11T00:07:02.531Z",
+        total: 2,
+      },
+    });
+  });
+
   test("publishes an OpenAPI document", async () => {
     const response = await server.inject({
       method: "GET",
