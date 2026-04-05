@@ -189,6 +189,45 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
         },
       },
     },
+    "/v1/dapps/browse": {
+      get: {
+        summary: "List chain browse rows with category previews",
+        parameters: [
+          {
+            in: "query",
+            name: "chainLimit",
+            schema: { type: "integer", minimum: 1, maximum: 24, default: 12 },
+          },
+          {
+            in: "query",
+            name: "categoryLimit",
+            schema: { type: "integer", minimum: 1, maximum: 12, default: 8 },
+          },
+          {
+            in: "query",
+            name: "lang",
+            schema: {
+              type: "string",
+              enum: ["en", "es", "zh", "hi", "pt", "nl", "de", "ar", "ja", "id", "fr", "bn"],
+              default: "en",
+            },
+            description: "Optional locale used to translate human-readable catalog fields.",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Chain-first browse rows for mobile directory views",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/DappBrowseResponse",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     "/v1/dapps/{id}": {
       get: {
         summary: "Get a dApp by id or slug",
@@ -434,6 +473,55 @@ export const buildOpenApiDocument = (serverUrl = getOpenApiServerUrl()) => ({
               items: {
                 type: "array",
                 items: { $ref: "#/components/schemas/MobileCatalogItem" },
+              },
+            },
+          },
+          meta: metaSchema,
+        },
+      },
+      DappBrowseCategoryPreview: {
+        type: "object",
+        additionalProperties: false,
+        required: ["id", "chain", "title", "total", "dapps"],
+        properties: {
+          id: { type: "string" },
+          chain: { type: "string" },
+          category: { anyOf: [{ type: "string" }, { type: "null" }] },
+          title: { type: "string" },
+          total: { type: "integer", minimum: 0 },
+          dapps: {
+            type: "array",
+            items: { $ref: "#/components/schemas/MobileCatalogItem" },
+          },
+        },
+      },
+      DappBrowseRow: {
+        type: "object",
+        additionalProperties: false,
+        required: ["chain", "total", "categories"],
+        properties: {
+          chain: { type: "string" },
+          total: { type: "integer", minimum: 0 },
+          categories: {
+            type: "array",
+            items: { $ref: "#/components/schemas/DappBrowseCategoryPreview" },
+          },
+        },
+      },
+      DappBrowseResponse: {
+        type: "object",
+        additionalProperties: false,
+        required: ["success", "data"],
+        properties: {
+          success: { type: "boolean", const: true },
+          data: {
+            type: "object",
+            additionalProperties: false,
+            required: ["items"],
+            properties: {
+              items: {
+                type: "array",
+                items: { $ref: "#/components/schemas/DappBrowseRow" },
               },
             },
           },

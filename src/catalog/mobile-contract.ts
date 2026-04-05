@@ -1,4 +1,5 @@
 import type { CatalogItem } from "./types.js";
+import { queryCatalog } from "./query.js";
 
 export type BrowserWalletFamily = "evm" | "solana";
 
@@ -12,6 +13,21 @@ export interface MobileCatalogItem extends CatalogItem {
 
 export interface GeneratedCatalogMeta {
   generatedAt: string;
+}
+
+export interface MobileCatalogBrowseCategoryPreview {
+  id: string;
+  chain: string;
+  category: string | null;
+  title: string;
+  total: number;
+  dapps: MobileCatalogItem[];
+}
+
+export interface MobileCatalogBrowseRow {
+  chain: string;
+  total: number;
+  categories: MobileCatalogBrowseCategoryPreview[];
 }
 
 const FEATURED_SLUGS = [
@@ -75,6 +91,61 @@ const getWalletFamilies = (chains: string[]): BrowserWalletFamily[] => {
 
 const toLaunchUrl = (item: CatalogItem) => (item.mobileUrl ?? item.webUrl ?? "").trim();
 
+const buildCategoryPreviews = (
+  chain: string,
+  items: MobileCatalogItem[],
+  categoryLimit: number,
+): MobileCatalogBrowseCategoryPreview[] => {
+  const buckets = new Map<
+    string,
+    {
+      category: string;
+      dapps: MobileCatalogItem[];
+      seenIds: Set<string>;
+    }
+  >();
+
+  for (const item of items) {
+    const categories = Array.from(
+      new Set(item.categories.map((entry) => entry.trim()).filter((entry) => entry.length > 0)),
+    );
+
+    for (const category of categories) {
+      const key = category.toLowerCase();
+      const bucket = buckets.get(key) ?? {
+        category,
+        dapps: [],
+        seenIds: new Set<string>(),
+      };
+
+      if (!bucket.seenIds.has(item.id)) {
+        bucket.seenIds.add(item.id);
+        bucket.dapps.push(item);
+      }
+
+      buckets.set(key, bucket);
+    }
+  }
+
+  return Array.from(buckets.values())
+    .sort((left, right) => {
+      if (right.dapps.length !== left.dapps.length) {
+        return right.dapps.length - left.dapps.length;
+      }
+
+      return left.category.localeCompare(right.category);
+    })
+    .slice(0, categoryLimit)
+    .map((bucket) => ({
+      id: `${chain}:${bucket.category.toLowerCase()}`,
+      chain,
+      category: bucket.category,
+      title: bucket.category,
+      total: bucket.dapps.length,
+      dapps: bucket.dapps.slice(0, 3),
+    }));
+};
+
 export const toMobileCatalog = (catalog: CatalogItem[]): MobileCatalogItem[] =>
   catalog.map((item) => {
     const chains = item.chains.map((chain) => normalizeValue(chain, CHAIN_ALIASES));
@@ -103,3 +174,31 @@ export const getFeaturedCatalogItems = (catalog: MobileCatalogItem[]): MobileCat
         (left.featuredRank ?? Number.MAX_SAFE_INTEGER) -
         (right.featuredRank ?? Number.MAX_SAFE_INTEGER),
     );
+
+export const buildBrowseRows = (
+  catalog: MobileCatalogItem[],
+  chains: ReadonlyArray<{ name: string; count: number }>,
+  {
+    chainLimit = 12,
+    categoryLimit = 8,
+  }: {
+    chainLimit?: number;
+    categoryLimit?: number;
+  } = {},
+): MobileCatalogBrowseRow[] =>
+  chains.slice(0, chainLimit).flatMap((chainSummary) => {
+    const chainItems = queryCatalog(catalog, { chain: chainSummary.name });
+    const categories = buildCategoryPreviews(chainSummary.name, chainItems, categoryLimit);
+
+    if (categories.length === 0) {
+      return [];
+    }
+
+    return [
+      {
+        chain: chainSummary.name,
+        total: chainSummary.count,
+        categories,
+      },
+    ];
+  });
