@@ -1,11 +1,14 @@
 import fastifyHttpProxy from "@fastify/http-proxy";
 import { getMcpRuntimeConfig } from "./mcp/runtime.js";
-import { loadGeneratedCatalog } from "./catalog/load-generated.js";
+import { loadGeneratedCatalog, loadGeneratedMeta } from "./catalog/load-generated.js";
 import { createHttpServer } from "./http/server.js";
 import { createMcpServer } from "./mcp/server.js";
 
 async function main() {
-  const catalog = await loadGeneratedCatalog();
+  const [catalog, generatedMeta] = await Promise.all([
+    loadGeneratedCatalog(),
+    loadGeneratedMeta(),
+  ]);
 
   // 1. Start the MCP server on an internal port
   const mcpServer = createMcpServer(catalog);
@@ -23,7 +26,7 @@ async function main() {
   console.log(`[Internal] MCP server listening on http://127.0.0.1:${internalMcpPort}/mcp`);
 
   // 2. Start the Fastify HTTP server on the exposed port
-  const fastifyServer = createHttpServer({ catalog });
+  const fastifyServer = createHttpServer({ catalog, generatedMeta });
   const externalPort = Number.parseInt(process.env.PORT ?? "8787", 10);
   const externalHost = process.env.HOST ?? "0.0.0.0";
 

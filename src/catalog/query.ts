@@ -7,10 +7,10 @@ export interface CatalogQuery {
   limit?: number;
 }
 
-export const queryCatalog = (
-  catalog: CatalogItem[],
+export const queryCatalog = <T extends CatalogItem>(
+  catalog: T[],
   { q, chain, category, limit }: CatalogQuery,
-): CatalogItem[] => {
+): T[] => {
   const normalizedQuery = q?.toLowerCase();
   const normalizedChain = chain?.toLowerCase();
   const normalizedCategory = category?.toLowerCase();

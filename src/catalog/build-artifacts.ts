@@ -9,7 +9,13 @@ const countValues = (items: CatalogItem[], key: "chains" | "categories") => {
   }
   return [...counts.entries()]
     .map(([name, count]) => ({ name, count }))
-    .sort((left, right) => left.name.localeCompare(right.name));
+    .sort((left, right) => {
+      if (right.count !== left.count) {
+        return right.count - left.count;
+      }
+
+      return left.name.localeCompare(right.name);
+    });
 };
 
 export const buildArtifacts = (items: CatalogItem[]) => ({

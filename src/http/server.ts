@@ -1,6 +1,12 @@
 import fastify, { type FastifyInstance } from "fastify";
 
 import { buildArtifacts } from "../catalog/build-artifacts.js";
+import {
+  getFeaturedCatalogItems,
+  type GeneratedCatalogMeta,
+  type MobileCatalogItem,
+  toMobileCatalog,
+} from "../catalog/mobile-contract.js";
 import type { CatalogItem } from "../catalog/types.js";
 import { queryCatalog } from "../catalog/query.js";
 import {
@@ -9,11 +15,13 @@ import {
   type SupportedLocale,
 } from "../i18n/config.js";
 import { translateTextBatch } from "../i18n/translate.js";
+import { getSupabase } from "../utils/supabase.js";
+import { applyCacheHeaders, buildEntityTag } from "./cache.js";
 import { buildOpenApiDocument } from "./openapi.js";
-import { supabase } from "../utils/supabase.js";
 
 export interface CreateHttpServerOptions {
   catalog: CatalogItem[];
+  generatedMeta?: GeneratedCatalogMeta;
   translateBatch?: typeof translateTextBatch;
 }
 
@@ -33,16 +41,24 @@ const error = (code: string, message: string) => ({
 
 export const createHttpServer = ({
   catalog,
+  generatedMeta,
   translateBatch = translateTextBatch,
 }: CreateHttpServerOptions): FastifyInstance => {
   const server = fastify({ logger: false });
-  const artifacts = buildArtifacts(catalog);
+  const mobileCatalog = toMobileCatalog(catalog);
+  const artifacts = buildArtifacts(mobileCatalog);
   const openApiDocument = buildOpenApiDocument();
+  const featuredCatalog = getFeaturedCatalogItems(mobileCatalog);
+
+  const buildCatalogMeta = (meta: Record<string, unknown> = {}) => ({
+    ...meta,
+    generatedAt: generatedMeta?.generatedAt ?? null,
+  });
 
   const localizeCatalogItems = async (
-    items: CatalogItem[],
+    items: MobileCatalogItem[],
     locale: SupportedLocale,
-  ): Promise<CatalogItem[]> => {
+  ): Promise<MobileCatalogItem[]> => {
     if (locale === DEFAULT_LOCALE || items.length === 0) {
       return items;
     }
@@ -58,6 +74,7 @@ export const createHttpServer = ({
 
     return items.map((item, index) => ({
       ...item,
+      description: shortDescriptions[index] ?? item.description,
       shortDescription: shortDescriptions[index] ?? item.shortDescription,
       longDescription: longDescriptions[index] ?? item.longDescription,
     }));
@@ -91,7 +108,7 @@ export const createHttpServer = ({
     return `<!DOCTYPE html><html><body><h1>Nexis dApps Directory API</h1><p>OpenAPI document: <a href="/openapi.json">/openapi.json</a></p></body></html>`;
   });
 
-  server.get("/v1/dapps", async (request) => {
+  server.get("/v1/dapps", async (request, reply) => {
     const { q, chain, category, page, limit, lang } = request.query as Record<
       string,
       string | undefined
@@ -109,53 +126,89 @@ export const createHttpServer = ({
           )[0];
     const parsedPage = Math.max(1, Number.parseInt(page ?? "1", 10) || 1);
     const parsedLimit = Math.min(250, Math.max(1, Number.parseInt(limit ?? "50", 10) || 50));
-    const filtered = queryCatalog(catalog, { q: normalizedQuery, chain, category });
+    const filtered = queryCatalog(mobileCatalog, { q: normalizedQuery, chain, category });
     const start = (parsedPage - 1) * parsedLimit;
     const items = await localizeCatalogItems(filtered.slice(start, start + parsedLimit), locale);
 
-    return success(
+    const payload = success(
       {
         items,
       },
-      {
+      buildCatalogMeta({
         page: parsedPage,
         limit: parsedLimit,
         total: filtered.length,
         hasMore: start + parsedLimit < filtered.length,
-      },
+      }),
     );
+
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
+  });
+
+  server.get("/v1/dapps/featured", async (request, reply) => {
+    const { lang } = request.query as Record<string, string | undefined>;
+    const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
+    const items = await localizeCatalogItems(featuredCatalog, locale);
+    const payload = success({ items }, buildCatalogMeta({ total: items.length }));
+
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
   });
 
   server.get("/v1/dapps/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     const { lang } = request.query as Record<string, string | undefined>;
     const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
-    const item = catalog.find((entry) => entry.id === id || entry.slug === id);
+    const item = mobileCatalog.find((entry) => entry.id === id || entry.slug === id);
     if (!item) {
       reply.code(404);
       return error("NOT_FOUND", "dApp not found");
     }
     const [localizedItem] = await localizeCatalogItems([item], locale);
-    return success(localizedItem);
+    const payload = success(localizedItem, buildCatalogMeta());
+
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
   });
 
-  server.get("/v1/chains", async (request) => {
+  server.get("/v1/chains", async (request, reply) => {
     const { lang } = request.query as Record<string, string | undefined>;
     const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
     const items = await localizeCountSummaries(artifacts.chains, locale);
+    const payload = success({ items }, buildCatalogMeta({ total: items.length }));
 
-    return success({ items }, { total: items.length });
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
   });
 
-  server.get("/v1/categories", async (request) => {
+  server.get("/v1/categories", async (request, reply) => {
     const { lang } = request.query as Record<string, string | undefined>;
     const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
     const items = await localizeCountSummaries(artifacts.categories, locale);
+    const payload = success({ items }, buildCatalogMeta({ total: items.length }));
 
-    return success({ items }, { total: items.length });
+    if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
+      return reply.send();
+    }
+
+    return payload;
   });
 
   server.get("/v1/airdrops", async (request, reply) => {
+    const supabase = getSupabase();
     const { chain, category, page, limit } = request.query as Record<string, string | undefined>;
     const parsedPage = Math.max(1, Number.parseInt(page ?? "1", 10) || 1);
     const parsedLimit = Math.min(250, Math.max(1, Number.parseInt(limit ?? "50", 10) || 50));
@@ -186,6 +239,7 @@ export const createHttpServer = ({
   });
 
   server.post("/v1/user-airdrops", async (request, reply) => {
+    const supabase = getSupabase();
     const { user_id, airdrop_id, evm_wallet_address, solana_wallet_address } = request.body as any;
     
     if (!user_id || !airdrop_id) {
@@ -217,6 +271,7 @@ export const createHttpServer = ({
   });
 
   server.get("/v1/user-airdrops/:user_id", async (request, reply) => {
+    const supabase = getSupabase();
     const { user_id } = request.params as { user_id: string };
 
     const { data, error: dbError } = await supabase

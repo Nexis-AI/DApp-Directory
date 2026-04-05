@@ -47,6 +47,9 @@ const catalog: CatalogItem[] = [
 describe("HTTP API", () => {
   const server = createHttpServer({
     catalog,
+    generatedMeta: {
+      generatedAt: "2026-03-11T00:07:02.531Z",
+    },
     translateBatch: async ({ texts, sourceLocale, targetLocale }) =>
       texts.map((text) => `${targetLocale}:${sourceLocale ?? "en"}:${text}`),
   });
@@ -77,7 +80,59 @@ describe("HTTP API", () => {
         ],
       },
       meta: {
+        generatedAt: "2026-03-11T00:07:02.531Z",
         total: 1,
+      },
+    });
+  });
+
+  test("derives launch metadata and emits cache headers", async () => {
+    const response = await server.inject({
+      method: "GET",
+      url: "/v1/dapps",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.headers["cache-control"]).toBe(
+      "public, max-age=300, stale-while-revalidate=900",
+    );
+    expect(response.headers.etag).toBeDefined();
+    expect(response.json()).toMatchObject({
+      success: true,
+      data: {
+        items: expect.arrayContaining([
+          expect.objectContaining({
+            id: "dapp_000001",
+            description: "Polymarket is a decentralized exchange on Polygon.",
+            launchUrl: "https://polymarket.com/",
+            inAppBrowserAllowed: true,
+            walletFamilies: ["evm"],
+          }),
+        ]),
+      },
+    });
+  });
+
+  test("returns featured dapps with the mobile contract", async () => {
+    const response = await server.inject({
+      method: "GET",
+      url: "/v1/dapps/featured",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({
+      success: true,
+      data: {
+        items: expect.arrayContaining([
+          expect.objectContaining({
+            id: "dapp_000001",
+            launchUrl: "https://polymarket.com/",
+            inAppBrowserAllowed: true,
+          }),
+        ]),
+      },
+      meta: {
+        generatedAt: "2026-03-11T00:07:02.531Z",
       },
     });
   });
@@ -96,6 +151,7 @@ describe("HTTP API", () => {
       },
       paths: {
         "/v1/dapps": expect.any(Object),
+        "/v1/dapps/featured": expect.any(Object),
         "/v1/dapps/{id}": expect.any(Object),
       },
     });
@@ -114,6 +170,7 @@ describe("HTTP API", () => {
         items: expect.arrayContaining([
           expect.objectContaining({
             id: "dapp_000001",
+            description: "es:en:Polymarket is a decentralized exchange on Polygon.",
             shortDescription: "es:en:Polymarket is a decentralized exchange on Polygon.",
             longDescription: "es:en:Polymarket lets users trade event outcomes.",
           }),
