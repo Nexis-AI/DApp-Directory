@@ -276,9 +276,12 @@ export const createHttpServer = ({
   });
 
   server.get("/v1/categories", async (request, reply) => {
-    const { lang } = request.query as Record<string, string | undefined>;
+    const { lang, chain } = request.query as Record<string, string | undefined>;
     const locale = isSupportedLocale(lang) ? lang : DEFAULT_LOCALE;
-    const items = await localizeCountSummaries(artifacts.categories, locale);
+    const categorySource = chain
+      ? buildArtifacts(queryCatalog(mobileCatalog, { chain })).categories
+      : artifacts.categories;
+    const items = await localizeCountSummaries(categorySource, locale);
     const payload = success({ items }, buildCatalogMeta({ total: items.length }));
 
     if (applyCacheHeaders(request, reply, buildEntityTag(payload))) {
